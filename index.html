@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>BLACK VEIL // Global Research & Anomaly Database</title>
+<meta name="description" content="An interactive fictional intelligence archive of classified research, anomalies and documented historical mysteries.">
+<meta name="theme-color" content="#050607">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;500;600;700;800&family=JetBrains+Mono:wght@300;400;600&family=IBM+Plex+Sans+Condensed:wght@300;400;500&family=Special+Elite&family=Reenie+Beanie&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/main.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23050607'/%3E%3Cpath d='M6 9h20M6 16h20M6 23h20' stroke='%23d0212a' stroke-width='3'/%3E%3C/svg%3E">
+</head>
+<body data-threat="1" data-stage="boot">
+<a class="skip" href="#main">Skip to archive content</a>
+
+<!-- persistent atmosphere layers -->
+<div class="fx fx-grain" aria-hidden="true"></div>
+<div class="fx fx-scan" aria-hidden="true"></div>
+<div class="fx fx-vignette" aria-hidden="true"></div>
+<div class="fx fx-static" id="fxStatic" aria-hidden="true"><span id="fxChannel">CAM 01</span></div>
+<div class="fx fx-flash" id="fxFlash" aria-hidden="true"></div>
+
+<button class="sound-toggle" id="soundToggle" aria-pressed="false" title="Toggle atmospheric sound (M)">
+  <span class="st-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+  <span>SOUND: <b id="soundState">OFF</b></span>
+</button>
+
+<!-- =================================================== BOOT / LANDING -->
+<section id="boot" class="boot" aria-label="Connection sequence">
+  <div class="boot-term" id="bootTerm" aria-live="polite"></div>
+
+  <div class="boot-feed" id="bootFeed" aria-hidden="true">
+    <canvas id="cctv"></canvas>
+    <div class="feed-hud">
+      <span class="rec">● REC</span><span id="feedCam">CAM 04 // GLOBAL INDEX</span><span id="feedTime">--:--:--</span>
+    </div>
+  </div>
+
+  <div class="boot-title" id="bootTitle">
+    <p class="kicker">GLOBAL ANOMALY INDEX</p>
+    <h1 class="glitch" data-text="BLACK VEIL">BLACK VEIL</h1>
+    <p class="subtitle">GLOBAL RESEARCH &amp; ANOMALY DATABASE</p>
+    <blockquote class="quote">“We investigated the impossible.<br>Then we discovered it was real.”</blockquote>
+    <button class="btn btn-enter" id="enterBtn"><span>ENTER THE ARCHIVE</span><i aria-hidden="true"></i></button>
+    <p class="disclaimer">Interactive fiction. Fictional files are labelled <b>CLASSIFIED-STYLE FICTION</b>; real historical cases are labelled <b>DOCUMENTED</b>.</p>
+  </div>
+</section>
+
+<!-- =================================================== LOADING -->
+<section id="loader" class="loader" aria-label="Loading archive" hidden>
+  <div class="ld-ring" aria-hidden="true"><canvas id="ldRadar" width="260" height="260"></canvas></div>
+  <ol class="ld-steps" id="ldSteps" aria-live="polite"></ol>
+  <div class="ld-bar"><i id="ldBar"></i></div>
+  <p class="ld-id mono">ARCHIVE ID <span id="ldId"></span></p>
+</section>
+
+<!-- =================================================== APP -->
+<div id="app" class="app" hidden>
+  <header class="hud">
+    <button class="logo" id="logo" aria-label="Black Veil — home (global map)">
+      <span class="logo-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="logo-txt"><b>BLACK VEIL</b><small>GRAD // NODE 03</small></span>
+    </button>
+
+    <ol class="progress" id="progress" aria-label="Investigation progress">
+      <li data-p="0">DISCOVER</li><li data-p="1">INVESTIGATE</li><li data-p="2">CONNECT</li><li data-p="3">DECRYPT</li><li data-p="4">REVEAL</li>
+    </ol>
+
+    <div class="hud-meta mono">
+      <span><em>UTC</em> <b id="utc">--:--:--</b></span>
+      <span><em>ACCESS</em> <b id="accessLvl">UNKNOWN</b></span>
+      <span class="hud-threat"><em>THREAT INDEX</em> <b id="threatName">OBSERVATION</b></span>
+      <button class="hud-term" id="termBtn" title="Open terminal (`)">&gt;_ TERMINAL</button>
+    </div>
+  </header>
+
+  <nav class="dept" id="dept" aria-label="Departments">
+    <button class="dept-toggle" id="deptToggle" aria-expanded="false" aria-controls="deptList">DEPARTMENTS</button>
+    <ul id="deptList">
+      <li><button data-view="map" class="active"><span class="n">01</span>GLOBAL MAP</button></li>
+      <li><button data-view="research"><span class="n">02</span>RESEARCH</button></li>
+      <li><button data-view="biohazard"><span class="n">03</span>BIOHAZARD</button></li>
+      <li><button data-view="facilities"><span class="n">04</span>SECRET FACILITIES</button></li>
+      <li><button data-view="anomalies"><span class="n">05</span>ANOMALIES</button></li>
+      <li><button data-view="unexplained"><span class="n">06</span>UNEXPLAINED</button></li>
+      <li><button data-view="files"><span class="n">07</span>CLASSIFIED FILES</button></li>
+      <li><button data-view="incidents"><span class="n">08</span>INCIDENTS</button></li>
+      <li><button data-view="timeline"><span class="n">09</span>TIMELINE</button></li>
+      <li><button data-view="archive"><span class="n">10</span>ARCHIVE</button></li>
+      <li><button data-view="monitor"><span class="n">11</span>LIVE MONITOR</button></li>
+    </ul>
+    <div class="dept-foot mono">
+      <p>SIGNAL STRENGTH <span class="sig" id="sigBars"><i></i><i></i><i></i><i></i><i></i></span></p>
+      <p>DATA INTEGRITY <b id="integrity">98.2%</b></p>
+      <p class="ghost" id="ghostCoords" title="">-48.88 / -123.39</p>
+    </div>
+  </nav>
+
+  <main id="main" class="views" tabindex="-1">
+    <!-- 01 MAP -->
+    <section class="view active" data-view="map" aria-labelledby="h-map">
+      <div class="view-head">
+        <h2 id="h-map"><span>01 //</span> GLOBAL ANOMALY INDEX</h2>
+        <div class="layer-toggles" role="group" aria-label="Map layers">
+          <label><input type="checkbox" id="lyrFic" checked> <i class="dot red"></i>BLACK VEIL SITES</label>
+          <label><input type="checkbox" id="lyrDoc" checked> <i class="dot blue"></i>DOCUMENTED EVENTS</label>
+        </div>
+      </div>
+      <div class="map-stage">
+        <div class="globe-wrap" id="globeWrap">
+          <canvas id="globe" aria-label="Interactive globe. Use the site list to open files with the keyboard." role="img"></canvas>
+          <div class="globe-hud" aria-hidden="true">
+            <span class="corner tl"></span><span class="corner tr"></span><span class="corner bl"></span><span class="corner br"></span>
+            <span class="g-read mono" id="globeRead">LAT 00.00 / LON 000.00 // ZOOM 1.0×</span>
+            <span class="g-hint mono">DRAG TO ROTATE · SCROLL TO ZOOM · CLICK A MARKER</span>
+          </div>
+          <div class="globe-tip" id="globeTip" hidden></div>
+          <div class="globe-zoom">
+            <button id="zIn" aria-label="Zoom in">+</button><button id="zOut" aria-label="Zoom out">−</button><button id="zReset" aria-label="Reset view">⟲</button>
+          </div>
+        </div>
+        <aside class="map-side">
+          <div class="threat-legend" id="threatLegend" aria-label="Threat level system"></div>
+          <div class="site-list" id="siteList" role="list" aria-label="Sites"></div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 02 RESEARCH -->
+    <section class="view" data-view="research" aria-labelledby="h-research">
+      <div class="view-head">
+        <h2 id="h-research"><span>02 //</span> RESEARCH DATABASE</h2>
+        <div class="filters" id="researchFilters"></div>
+      </div>
+      <div class="grid cards" id="researchGrid"></div>
+    </section>
+
+    <!-- 03 BIOHAZARD -->
+    <section class="view view-bio" data-view="biohazard" aria-labelledby="h-bio">
+      <div class="view-head">
+        <h2 id="h-bio"><span>03 //</span> BIOHAZARD — SPECIMEN REGISTRY</h2>
+        <p class="mono warn-strip">⚠ CONTAINMENT PROTOCOL RED IN EFFECT</p>
+      </div>
+      <div class="grid specimens" id="specGrid"></div>
+      <div class="bio-lower">
+        <div class="panel sim">
+          <h3>INFECTION SIMULATION <small>SIR model · VX-17 network spread (fictional parameters)</small></h3>
+          <canvas id="simCanvas" width="520" height="300" aria-label="Infection simulation grid"></canvas>
+          <div class="sim-ctrl">
+            <label>TRANSMISSION β <input type="range" id="simBeta" min="0.05" max="0.6" step="0.01" value="0.28"> <b id="simBetaV">0.28</b></label>
+            <label>RECOVERY γ <input type="range" id="simGamma" min="0.02" max="0.3" step="0.01" value="0.08"> <b id="simGammaV">0.08</b></label>
+            <label class="chk"><input type="checkbox" id="simContain"> CONTAINMENT WALLS</label>
+            <button class="btn sm" id="simRun">RUN</button><button class="btn sm ghost" id="simReset">RESET</button>
+          </div>
+          <canvas id="simChart" width="520" height="110" aria-label="Susceptible, infected, recovered curve"></canvas>
+          <p class="sim-legend mono"><i class="s"></i>SUSCEPTIBLE <i class="i"></i>INFECTED <i class="r"></i>RECOVERED / ISOLATED</p>
+        </div>
+        <div class="panel">
+          <h3>QUARANTINE ZONES</h3>
+          <table class="tbl" id="qzTable"><thead><tr><th>ZONE</th><th>RADIUS</th><th>SINCE</th><th>STATUS</th></tr></thead><tbody></tbody></table>
+          <h3 class="mt">CONTAINMENT PROCEDURES</h3>
+          <ol class="proc" id="procList"></ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 FACILITIES -->
+    <section class="view" data-view="facilities" aria-labelledby="h-fac">
+      <div class="view-head"><h2 id="h-fac"><span>04 //</span> SECRET FACILITIES DIRECTORY</h2><p class="mono dim">SATELLITE PASS · REAL-TIME UNAVAILABLE · ARCHIVAL IMAGERY</p></div>
+      <div class="grid facilities" id="facGrid"></div>
+    </section>
+
+    <!-- 05 ANOMALIES -->
+    <section class="view" data-view="anomalies" aria-labelledby="h-anom">
+      <div class="view-head"><h2 id="h-anom"><span>05 //</span> ANOMALY REGISTER</h2><p class="mono dim">ALL ENTRIES: CLASSIFIED-STYLE FICTION</p></div>
+      <div class="grid anomalies" id="anomGrid"></div>
+    </section>
+
+    <!-- 06 UNEXPLAINED -->
+    <section class="view" data-view="unexplained" aria-labelledby="h-unx">
+      <div class="view-head"><h2 id="h-unx"><span>06 //</span> UNEXPLAINED — PUBLIC RECORD</h2>
+        <p class="mono dim">REAL-WORLD CASES. FACTUAL SUMMARIES. NO FICTION IN THIS DEPARTMENT.</p></div>
+      <div class="unx-list" id="unxList"></div>
+    </section>
+
+    <!-- 07 FILES -->
+    <section class="view" data-view="files" aria-labelledby="h-files">
+      <div class="view-head"><h2 id="h-files"><span>07 //</span> CLASSIFIED FILES</h2>
+        <div class="files-tools"><button class="btn sm" id="compareBtn" aria-pressed="false">COMPARE MODE</button><span class="mono dim" id="compareHint"></span></div></div>
+      <div class="grid files" id="filesGrid"></div>
+    </section>
+
+    <!-- 08 INCIDENTS -->
+    <section class="view" data-view="incidents" aria-labelledby="h-inc">
+      <div class="view-head"><h2 id="h-inc"><span>08 //</span> INCIDENT REPORTS</h2></div>
+      <div class="panel"><table class="tbl inc" id="incTable"><thead><tr><th>REPORT</th><th>DATE</th><th>SITE</th><th>SEVERITY</th><th>SUMMARY</th><th>STATUS</th><th>SOURCE</th></tr></thead><tbody></tbody></table></div>
+    </section>
+
+    <!-- 09 TIMELINE -->
+    <section class="view" data-view="timeline" aria-labelledby="h-tl">
+      <div class="view-head"><h2 id="h-tl"><span>09 //</span> CHRONOLOGY</h2><p class="mono dim">DRAG · SCROLL · ← → KEYS</p></div>
+      <div class="tl-wrap" id="tlWrap" tabindex="0" aria-label="Timeline. Use left and right arrow keys to move.">
+        <div class="tl-track" id="tlTrack"></div>
+      </div>
+      <div class="tl-years mono" id="tlYears"></div>
+      <div class="tl-detail panel" id="tlDetail" aria-live="polite"></div>
+    </section>
+
+    <!-- 10 ARCHIVE -->
+    <section class="view" data-view="archive" aria-labelledby="h-arc">
+      <div class="view-head"><h2 id="h-arc"><span>10 //</span> MASTER ARCHIVE</h2>
+        <input type="search" id="arcSearch" class="search" placeholder="SEARCH ARCHIVE — try 03:17:42" aria-label="Search the archive"></div>
+      <div class="arc-layout">
+        <div class="panel arc-results"><ul id="arcResults"></ul></div>
+        <div class="panel arc-side">
+          <h3>ACCESS LOG</h3>
+          <ol class="access-log mono" id="accessLog"></ol>
+          <h3 class="mt">DISCOVERIES <b id="discCount">0</b></h3>
+          <ul class="disc mono" id="discList"></ul>
+          <button class="btn sm ghost mt" id="purgeBtn">PURGE SESSION</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11 MONITOR -->
+    <section class="view view-monitor" data-view="monitor" aria-labelledby="h-mon">
+      <div class="view-head"><h2 id="h-mon"><span>11 //</span> GLOBAL THREAT MONITOR</h2><p class="mono live">● LIVE · <span id="monClock"></span></p></div>
+      <div class="mon-grid">
+        <div class="panel mon-map"><h3>WORLDWIDE ANOMALY ACTIVITY</h3><canvas id="monMap"></canvas></div>
+        <div class="panel mon-radar"><h3>SATELLITE SIGNALS</h3><canvas id="monRadar"></canvas><p class="mono dim" id="radarRead">SWEEP 0°</p></div>
+        <div class="panel mon-series"><h3>SIGNAL EVENTS / MIN <small>by division · rolling 60 min</small></h3><canvas id="monSeries"></canvas><div class="legend mono" id="seriesLegend"></div></div>
+        <div class="panel mon-fac"><h3>FACILITY STATUS</h3><ul id="monFac" class="mono"></ul></div>
+        <div class="panel mon-ocean"><h3>OCEAN ACTIVITY <small>Deep Node H-2 hydrophone</small></h3><canvas id="monOcean"></canvas></div>
+        <div class="panel mon-atmo"><h3>ATMOSPHERIC ANOMALIES <small>spectrogram 0–60 Hz</small></h3><canvas id="monAtmo"></canvas></div>
+        <div class="panel mon-bio"><h3>BIOLOGICAL ALERTS</h3><canvas id="monBio"></canvas></div>
+        <div class="panel mon-log"><h3>UNKNOWN TRANSMISSIONS</h3><ol id="monLog" class="mono" aria-live="off"></ol></div>
+      </div>
+    </section>
+  </main>
+
+  <aside class="rail" aria-label="System feed">
+    <h3>ACCESS LOG</h3>
+    <ol class="mono" id="railLog"></ol>
+    <h3>LAST TRANSMISSION</h3>
+    <p class="mono big" id="railLast">03:17:42 UTC</p>
+    <h3>CLEARANCE KEYS</h3>
+    <ul class="keys mono" id="railKeys"></ul>
+  </aside>
+
+  <footer class="ticker mono" aria-hidden="true"><div id="tickerInner"></div></footer>
+</div>
+
+<!-- =================================================== INVESTIGATION PANEL -->
+<div class="inv" id="inv" role="dialog" aria-modal="true" aria-labelledby="invTitle" hidden>
+  <div class="inv-backdrop" data-close></div>
+  <article class="inv-sheet">
+    <header class="inv-head">
+      <div><p class="mono dim" id="invKicker"></p><h2 id="invTitle"></h2></div>
+      <button class="close" data-close aria-label="Close file">✕</button>
+    </header>
+    <div class="inv-body" id="invBody"></div>
+  </article>
+</div>
+
+<!-- =================================================== DOCUMENT VIEWER -->
+<div class="docv" id="docv" role="dialog" aria-modal="true" aria-label="Document viewer" hidden>
+  <div class="docv-tools">
+    <span class="mono" id="docvTitle"></span>
+    <div class="tools">
+      <button data-act="zoomout" aria-label="Zoom out">−</button>
+      <button data-act="zoomin" aria-label="Zoom in">+</button>
+      <button data-act="rotl" aria-label="Rotate left">⟲</button>
+      <button data-act="rotr" aria-label="Rotate right">⟳</button>
+      <button data-act="lens" aria-pressed="false">INSPECT</button>
+      <button data-act="uv" aria-pressed="false">UV LIGHT</button>
+      <button data-act="decrypt">DECRYPT</button>
+      <button data-act="close" class="close" aria-label="Close document">✕</button>
+    </div>
+  </div>
+  <div class="docv-stage" id="docvStage"></div>
+  <div class="lens" id="lens" hidden></div>
+</div>
+
+<!-- =================================================== TERMINAL -->
+<div class="term" id="term" role="dialog" aria-modal="true" aria-label="Archive terminal" hidden>
+  <div class="term-out mono" id="termOut" aria-live="polite"></div>
+  <form class="term-in mono" id="termForm"><label for="termInput">veil@archive:~$</label><input id="termInput" autocomplete="off" spellcheck="false"></form>
+</div>
+
+<!-- =================================================== OVERLAYS -->
+<div class="overlay" id="overlay" role="alertdialog" aria-live="assertive" hidden></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="data/world.js"></script>
+<script src="data/archive.js"></script>
+<script src="js/audio.js"></script>
+<script src="js/fx.js"></script>
+<script src="js/globe.js"></script>
+<script src="js/story.js"></script>
+<script src="js/views.js"></script>
+<script src="js/monitor.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
